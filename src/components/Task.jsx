@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../services/firebase.config";
 import { addDoc, collection, deleteDoc, doc, getDocs } from "firebase/firestore";
+import EditTask from './EditTask';
 
 const Task = () => {
   const [tasks, setTasks] = useState([]);
@@ -81,9 +82,7 @@ const Task = () => {
                       &nbsp;{task}
                     </span>
                     <span className="float-end mx-3">
-                      <button type="button" className="btn btn-primary">
-                        Edit Task
-                      </button>
+                      <EditTask task={task} id={id} />
                     </span>
                     <button
                       type="button"
@@ -113,7 +112,7 @@ const Task = () => {
             <div className="modal-content">
               <div className="modal-header">
                 <h1 className="modal-title fs-5" id="addTaskLabel">
-                  Modal title
+                  Add Task
                 </h1>
                 <button
                   type="button"
