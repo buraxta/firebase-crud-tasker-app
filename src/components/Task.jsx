@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../services/firebase.config";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 
 const Task = () => {
   const [tasks, setTasks] = useState([]);
@@ -39,6 +39,20 @@ const Task = () => {
     console.log(createTask);
   };
 
+  const deleteTask = async(id) => {
+    try {
+      window.confirm('Are you sure you want to delete this task ?');
+      const documentRef = doc(db, 'tasks', id);
+      await deleteDoc(documentRef);
+      window.location.reload();
+
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+
+
   return (
     <>
       <div className="container">
@@ -74,8 +88,9 @@ const Task = () => {
                     <button
                       type="button"
                       className="btn btn-danger  float-end mx-3"
+                      onClick={() => deleteTask(id)}
                     >
-                      Delete Task
+                      Delete
                     </button>
                   </div>
                 </div>
